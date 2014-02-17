@@ -12,6 +12,7 @@ function flappycloneInit() {
     document.body.appendChild(canvas);
     canvas.focus();
     canvas.onkeydown = flappycloneKeyDown;
+    canvas.ontouchstart = flappycloneTouchStart;
     canvas.onkeyup = flappycloneKeyUp;
     context = canvas.getContext("2d");
     
@@ -85,6 +86,13 @@ function flappycloneKeyUp(e) {
 	spacedown = false;
     }
 }
+function flappycloneTouchStart() {
+    if (!bird.dead) {
+	bird.jump();
+    } else {
+	flappycloneStart();
+    }
+}
 
 function flappycloneUpdate() {
     var context = canvas.getContext("2d");
@@ -137,15 +145,16 @@ function flappycloneDraw() {
     } else {
 	//draw losing screen
 	context.fillStyle = "rgba(225, 225, 225, 0.9)";
-	context.fillRect(280, 210, 410, 200);
+	context.fillRect(canvas.width/2 - 200, canvas.height/2 - 100, 400, 200);
 	
 	context.fillStyle = "#000";
+	context.textAlign = "center";
 	context.font = "64px sans-serif";
-	context.fillText("SCORE: " + score, 325, 300);
+	context.fillText("SCORE: " + score, canvas.width/2, canvas.height/2);
 	
 	context.fillStyle = "#333";
 	context.font = "24px sans-serif";
-	context.fillText("PRESS ENTER TO PLAY AGAIN", 310, 365);
+	context.fillText("PRESS ENTER TO PLAY AGAIN", canvas.width/2, canvas.height/2 + 50);
     }
     
     //draw floor
