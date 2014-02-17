@@ -121,10 +121,11 @@ function flappycloneUpdate() {
 
 function flappycloneDraw() {
     var context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
     
     if (!bird.dead) {
-    bird.draw(context);
+	context.clearRect(0, 0, canvas.width, canvas.height);
+
+	bird.draw(context);
 	for (var i = 0; i < pipes.length; i++) {
 	    pipes[i].draw(context);
 	}
@@ -134,6 +135,10 @@ function flappycloneDraw() {
 	context.font = "42px sans-serif";
 	context.fillText(score, 50, 50);
     } else {
+	//draw losing screen
+	context.fillStyle = "rgba(225, 225, 225, 0.9)";
+	context.fillRect(280, 210, 410, 200);
+	
 	context.fillStyle = "#000";
 	context.font = "64px sans-serif";
 	context.fillText("SCORE: " + score, 325, 300);
